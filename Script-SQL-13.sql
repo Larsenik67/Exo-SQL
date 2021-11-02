@@ -3,4 +3,9 @@ FROM personnage p
 INNER JOIN lieu l ON p.id_lieu = l.id_lieu
 WHERE nom_lieu != 'Village gaulois'
 GROUP BY nom_lieu
-ORDER BY nbHabitant DESC
+HAVING nbHabitant >= ALL (
+	SELECT COUNT(nom_personnage) AS habitant
+	FROM personnage p
+	INNER JOIN lieu l ON p.id_lieu = l.id_lieu
+	WHERE nom_lieu != 'Village gaulois'
+	GROUP BY nom_lieu)
