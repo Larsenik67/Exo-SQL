@@ -1,8 +1,6 @@
-SELECT nom_personnage
+SELECT p.nom_personnage
 FROM personnage p
-WHERE NOT EXISTS (
-SELECT nom_personnage
+WHERE p.id_personnage NOT IN (
+SELECT DISTINCT(b.id_personnage)
 FROM boire b
-WHERE p.	id_personnage = b.id_personnage
 )
-GROUP BY nom_personnage

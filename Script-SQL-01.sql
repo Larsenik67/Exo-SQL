@@ -1,3 +1,4 @@
 SELECT nom_lieu
 FROM lieu
-WHERE nom_lieu LIKE '%um'
+WHERE LOWER(l.nom_lieu) LIKE '%um'
+ORDER BY l.nom_lieu
