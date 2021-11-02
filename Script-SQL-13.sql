@@ -1,11 +1,10 @@
-SELECT nom_lieu, COUNT(nom_personnage) AS nbHabitant
+SELECT l.nom_lieu, COUNT(p.nom_personnage) AS nbHabitant
 FROM personnage p
 INNER JOIN lieu l ON p.id_lieu = l.id_lieu
-WHERE nom_lieu != 'Village gaulois'
-GROUP BY nom_lieu
+WHERE l.id_lieu != 1
+GROUP BY l.id_lieu
 HAVING nbHabitant >= ALL (
-	SELECT COUNT(nom_personnage) AS habitant
+	SELECT COUNT(p.nom_personnage)
 	FROM personnage p
-	INNER JOIN lieu l ON p.id_lieu = l.id_lieu
-	WHERE nom_lieu != 'Village gaulois'
-	GROUP BY nom_lieu)
+	WHERE p.id_lieu != 1
+	GROUP BY p.id_lieu)
